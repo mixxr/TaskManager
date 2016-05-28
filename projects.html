@@ -124,6 +124,7 @@
                         <div class="col-xs-4">
                             <select class="form-control">
                                 <option value="name">Name</option>
+                                <option value="priority">Priority</option>
                                 <option value="duedate">Due Date</option>
                                 <option value="assigned">Assigned</option>
                             </select>
@@ -142,11 +143,12 @@
             <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'>
                 <p style="padding:5px;"></p>
                 <div class='panel panel-success'>
-                    <div class='panel-heading'>Project 2016</div>
+                    <div class='panel-heading'><b>Project 2016</b></div>
                     <div class='panel-body'>
                         Bla Bla Bla Bla Bla<br/>
                         Data
                     </div>
+                    <div class='panel-footer'><b>Due Date:</b> 2016-Jul-12</div>
                 </div>
             </div>
         </a>
@@ -154,10 +156,13 @@
             <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'>
                 <p style="padding:5px;"></p>
                 <div class='panel panel-success'>
-                    <div class='panel-heading'>Project 2015</div>
+                    <div class='panel-heading'><b>Project 2015</b><span class="pull-right tag badge">50%</span></div>
                     <div class='panel-body'>
                         Bla Bla Bla Bla Bla<br/>
                         Data
+                    </div>
+                    <div class='panel-footer btn-warning'>
+                        &nbsp;<span class="pull-right label label-danger">Overdue</span>
                     </div>
                 </div>
             </div>

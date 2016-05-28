@@ -94,3 +94,6 @@ address{
     position: absolute;
     bottom: 0px;
 }
+.tag {
+    margin-right: 5px;
+}
