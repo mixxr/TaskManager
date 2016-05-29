@@ -21,7 +21,10 @@
     <!-- icons&font awesome -->
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap-social.css" rel="stylesheet">
-
+    <!-- DATATABLES -->
+    <link href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/datatables.net-select-bs/css/select.bootstrap.min.css" rel="stylesheet">
+    <link href="css/mystyles.table.css" rel="stylesheet">
 </head>
 
 <body>
@@ -113,7 +116,7 @@
 
     <div class='container'>
         <div class='row'>
-            <h3 class='col-xs-4'>Projects</h3>
+            <h3 class='col-xs-4'>Project Name Details</h3>
             <form class="form-horizontal col-xs-6" role="form">
                 <p style="padding:0px;"></p>
                 <div id="sortby" class="row">
@@ -139,127 +142,59 @@
         </div>
 
         <div class='row'>
-        <a href="#">
-            <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'>
-                <p style="padding:5px;"></p>
-                <div class='panel panel-success'>
-                    <div class='panel-heading'><b>Project 2016</b></div>
-                    <div class='panel-body'>
-                        Bla Bla Bla Bla Bla<br/>
-                        Data
-                    </div>
-                    <div class='panel-footer'><b>Due Date:</b> 2016-Jul-12</div>
-                </div>
-            </div>
-        </a>
-        <a href="#">
-            <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'>
-                <p style="padding:5px;"></p>
-                <div class='panel panel-success'>
-                    <div class='panel-heading'><b>Project 2015</b><span class="pull-right tag badge">50%</span></div>
-                    <div class='panel-body'>
-                        Bla Bla Bla Bla Bla<br/>
-                        Data
-                    </div>
-                    <div class='panel-footer'>
-                        <span class="label label-warning">Medium</span>
-                        <div class='pull-right'>
-                            <span class="label label-danger">Overdue</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        <a href="#">
-            <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'>
-                <p style="padding:5px;"></p>
-                <div class='panel panel-success'>
-                    <div class='panel-heading'>Project 2014<span class="pull-right tag badge">90%</span></div>
-                    <div class='panel-body'>
-                        Bla Bla Bla Bla Bla<br/>
-                        Bla Bla Bla Bla Bla<br/>
-                        Bla Bla Bla Bla Bla<br/>
-                        Data
-                    </div>
-                    <div class='panel-footer'>
-                        <span class="label label-warning">Medium</span>
-                        <div class='pull-right'>
-                            <span class="label label-success">On time</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        <a href="#">
-            <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'>
-                <p style="padding:5px;"></p>
-                <div class='panel panel-success'>
-                    <div class='panel-heading'>Project Green 1</div>
-                    <div class='panel-body'>
-                        Bla Bla Bla Bla Bla<br/>
-                        Data
-                    </div>
-                     <div class='panel-footer'>
-                        <span class="label label-danger">High</span>
-                        <div class='pull-right'>
-                            <span class="label label-warning">Pay Attention</span>
-                        </div>
-                    </div>
-               </div>
-            </div>
-        </a>
-        <a href="#">
-            <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'>
-                <p style="padding:5px;"></p>
-                <div class='panel panel-success'>
-                    <div class='panel-heading'>Project ABC 12345</div>
-                    <div class='panel-body'>
-                        Bla Bla Bla Bla Bla<br/>
-                        Data
-                    </div>
-                </div>
-            </div>
-        </a>
-        <a href="#">
-            <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'>
-                <p style="padding:5px;"></p>
-                <div class='panel panel-success'>
-                    <div class='panel-heading'>Project QWERTY 3423 3243243434234</div>
-                    <div class='panel-body'>
-                        Bla Bla Bla Bla Bla<br/>
-                        Data
-                    </div>
-                </div>
-            </div>
-        </a>
-        <a href="#">
-            <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'>
-                <p style="padding:5px;"></p>
-                <div class='panel panel-success'>
-                    <div class='panel-heading'>Project NEW TEST</div>
-                    <div class='panel-body'>
-                        Bla Bla Bla Bla Bla<br/>
-                        Data
-                    </div>
-                </div>
-            </div>
-        </a>
-        <a href="#">
-            <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'>
-                <p style="padding:5px;"></p>
-                <div class='panel panel-success'>
-                    <div class='panel-heading'>Project TEST TEST</div>
-                    <div class='panel-body'>
-                        Bla Bla Bla Bla Bla<br/>
-                        Bla Bla Bla Bla Bla<br/>
-                        Bla Bla Bla Bla Bla<br/>
-                        Bla Bla Bla Bla Bla<br/>
-                        Data
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
+            <!-- TASK LIST -->
+            <table class="table table-striped table-hover" id='tasklist' style="width:100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>First</th>
+                    <th>Last</th>
+                    <th>Status</th>
+                    <th>Assigned</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>01010</td>
+                    <td>Prune Trees</td>
+                    <td>Bla Bla Bla Bla Bla Bla</td>
+                    <td>2015/11/11</td>
+                    <td>2016/12/12</td>
+                    <td class='warning'>In progress</td>
+                    <td>john@example.com</td>
+                  </tr>
+                  <tr>
+                    <td>34678</td>
+                    <td>Cut Trees</td>
+                    <td>Bla Bla Bla Bla Bla Bla</td>
+                    <td>2015/10/11</td>
+                    <td>2015/12/12</td>
+                    <td class='success'>Completed</td>
+                    <td>admin@example.com</td>
+                  </tr>
+                  <tr>
+                    <td>34535</td>
+                    <td>Add Trees</td>
+                    <td>Bla Bla Bla Bla Bla Bla</td>
+                    <td>2015-11-11</td>
+                    <td>2015-11-11</td>
+                    <td class='danger'>Assigned</td>
+                    <td>ciro@example.com</td>
+                  </tr>
+                  <tr>
+                    <td>45902</td>
+                    <td>Remove Trees</td>
+                    <td>Bla Bla Bla Bla Bla Bla</td>
+                    <td>2014-10-11</td>
+                    <td>2014-12-12</td>
+                    <td class='success'>Completed</td>
+                    <td>admin@example.com</td>
+                  </tr>
+                </tbody>
+          </table>
+        </div>
         
     </div>
 
@@ -309,6 +244,19 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <!-- DATATABLES -->
+    <script src='bower_components/datatables.net/js/jquery.dataTables.min.js'></script>
+    <script src='bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js'></script>
+    <script src='bower_components/datatables.net-select/js/dataTables.select.min.js'></script>
+    <script>
+        $(document).ready(function() {
+          $('#tasklist').dataTable({
+            select: {
+                style: 'multi'
+            }
+          });
+        });
+    </script>
 </body>
 
 </html>
