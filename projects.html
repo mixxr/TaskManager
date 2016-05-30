@@ -113,33 +113,32 @@
 
     <div class='container'>
         <div class='row'>
-            <h3 class='col-xs-4'>Projects</h3>
-            <form class="form-horizontal col-xs-6" role="form">
-                <p style="padding:0px;"></p>
-                <div id="sortby" class="row">
-                    <div class="form-group">
-                        <div class="checkbox col-xs-1 col-xs-offset-6">
-                            <span class="glyphicon glyphicon-sort" aria-hidden="true"></span> 
-                        </div>
-                        <div class="col-xs-4">
-                            <select class="form-control">
-                                <option value="name">Name</option>
-                                <option value="priority">Priority</option>
-                                <option value="duedate">Due Date</option>
-                                <option value="assigned">Progress</option>
-                            </select>
-                        </div>
-                    </div>  
-                </div>
-            </form>
-            <div class="col-xs-2">
-                <p style="padding:0px;"></p>
-                <button type="button" class="btn btn-success">New</button>
-            </div>
+            <h3 class='col-xs-12'>Projects</h3>
         </div>
 
         <div class='row'>
-        <a href="#">
+            <div class="input-group col-xs-10 col-xs-offset-1">
+              <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-search"></i></span>
+  <input type="text" class="form-control" placeholder="search text" name='filter' aria-describedby="sizing-addon2">
+              <span class="input-group-btn btn-group-sm">
+                  <span style="margin-left:50px"> </span>
+                <a type="button" class="btn btn-success"><i class="glyphicon glyphicon-repeat"></i> Last</a>
+                  <a type="button" class="btn btn-success"><i class="glyphicon glyphicon-star"></i>  Favourites</a>
+                  <div class="btn-group btn-group-sm">
+                    <a type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-sort"></i> Sort by <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">Name</a></li>
+                      <li><a href="#">Priority</a></li>
+                      <li><a href="#">Date</a></li>
+                    </ul>
+                  </div>
+              </span>
+            </div>
+        </div>
+    
+        <div class='row'>
+        <a href="project.html">
             <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'>
                 <p style="padding:5px;"></p>
                 <div class='panel panel-success'>
