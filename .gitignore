@@ -1,6 +1,8 @@
 .DS_*
 bower_components
 fonts
+dist
+node_modules
 bootst*
 font-awesome*
 npm*
