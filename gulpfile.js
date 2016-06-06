@@ -48,9 +48,9 @@ gulp.task('useminmultiple',['jshint'],  function () {
     .pipe(foreach(function (stream, file) {
       return stream
         .pipe(usemin({
-            css:[minifycss(),rev()],
+            css:[minifycss(),'concat'],
             html: [minifyHTML({empty: true})],
-            js: [uglify(),rev()]
+            js: [uglify(),'concat']
         }))
         // BE CAREFUL!!!
         // This now has the CSS/JS files added to the stream

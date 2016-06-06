@@ -3,6 +3,14 @@ body{
     z-index:0;
 }
 
+a {
+    color:darkolivegreen;
+}
+
+a:hover{
+    color:darkolivegreen;
+}
+
 .navbar-inverse {
      background: ;
 }
