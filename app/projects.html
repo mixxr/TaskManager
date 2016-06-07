@@ -121,12 +121,14 @@
         <div class='row'>
             <div class="input-group col-xs-10 col-xs-offset-1">
               <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-search"></i></span>
-  <input type="text" class="form-control" placeholder="search text" name='filter' aria-describedby="sizing-addon2" ng-model="prjFilter">
+  <input type="text" class="form-control" placeholder="search text" name='filter' aria-describedby="sizing-addon2" ng-model="prjFilter.text">
               <span class="input-group-btn btn-group-sm">
-                  <span style="margin-left:50px"> </span>
-                <a type="button" class="btn btn-success"><i class="glyphicon glyphicon-repeat"></i> Last</a>
-                  <a type="button" class="btn btn-success"><i class="glyphicon glyphicon-star"></i>  Favourites</a>
-                  <div class="btn-group btn-group-sm">{{prjSorter}}
+                <span style="margin-left:50px"> </span>
+                  <button type="button" class="btn" ng-class="{'btn-success': prjFilter.last}" ng-model="prjFilter.last" btn-checkbox="prjFilter.last===true" ng-click="prjFilter.last = !prjFilter.last"><i class="glyphicon glyphicon-hourglass"></i> Last</button>
+                  <button type="button" class="btn" ng-class="{'btn-success': prjFilter.favourites}" ng-model="prjFilter.favourites" btn-checkbox="prjFilter.favourites===true" ng-click="prjFilter.favourites = !prjFilter.favourites"><i class="glyphicon glyphicon-star"></i> Favourites</button>
+                <!--a type="button" class="btn btn-success" data-toggle="button" ng-model='prjFilter.last' ng-model="prjFilter.last=!prjFilter.last"><i class="glyphicon glyphicon-hourglass"></i> Last</a-->
+                <!--a type="button" class="btn btn-success"><i class="glyphicon glyphicon-star"></i>  Favourites</a-->
+                <div class="btn-group btn-group-sm">
                     <a type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                     <i class="glyphicon glyphicon-sort"></i> Sort by <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -134,27 +136,34 @@
                       <li><a href="" ng-click="prjSorter='priority'">Priority</a></li>
                       <li><a href="" ng-click="prjSorter='duedate'">Due Date</a></li>
                     </ul>
+                </div>
+                  <div>
+                    <select ng-model="prjFilter.status" ng-options="opt as opt for opt in prjStatus"></select>
                   </div>
               </span>
             </div>
         </div>
     
         <div class='row' ng-init="">
-        <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3' ng-repeat="prj in prjs | filter: prjFilter| orderBy: prjSorter">
+        <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3' ng-repeat="prj in prjs | filter: prjFilter.do | orderBy: prjSorter">
             <p style="padding:5px;"></p>
             <div class='panel panel-success'>
                 <div class='panel-heading'>
                     <a href='project.html'><b>{{prj.name}}</b><span class="pull-right tag badge">{{50}}%</span></a>
                 </div>
                 <div class='panel-body'>
-                    {{prj.description | limitTo:50}}<br/><a href="#">...</a><br/>
-                    Due Date: {{prj.duedate | date}}
+                    {{prj.description | limitTo:50}}<br/><a href="#">...</a><br/> 
+                    <div class=''>
+                        <span ng-if='date >= prj.duedate' class="label label-danger">Overdue</span>
+                        <span ng-if='date < prj.duedate' class=""><strong>Due Date:</strong></span>
+                        {{prj.duedate | date: 'short'}}
+                    </div>
                 </div>
                 <div class='panel-footer'>
                     <span class="label label-{{priorityColors[prj.priority]}}">{{priorityLabels[prj.priority]}}</span>
-                    <div class='pull-right'>
-                        <span ng-if='date > prj.duedate' class="label label-danger">Overdue</span>
-                    </div>
+                    <span ng-if='prj.status != undefined'>
+                        <div class='tag badge'>{{prj.status}}</div>
+                    </span>
                 </div>
             </div>
 
@@ -214,76 +223,128 @@
     <script src="../bower_components/angular/angular.min.js"></script>
     <!-- endbuild -->
     <script>
+        var utils = {};
+        utils.extractField = function(items, field){
+            return items.map(function(e){return e[field];});
+        };
+        utils.extractUnique = function(xs){
+          return xs.filter(function(x, i) {
+            return xs.indexOf(x) === i
+          });
+        }
     var app = angular.module('taskmanager', []);   
         app.controller( 'MyCtrl', ['$scope', function($scope) {
-            $scope.date = new Date();
-            $scope.priorityColors = ['danger','warning','success'];
-            $scope.priorityLabels = ['High','Medium','Normal'];
-            $scope.prjSorter = 'duedate';
-            $scope.prjFilter = '';
             $scope.prjs=[
                          {
-                           name:'Project 2016',
+                           name:'Project 2016 LAST',
                            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
-                           duedate:'20142360505', 
-                           inidate:'20123450505',
+                           duedate:'1287323623006', 
+                           inidate:'1288323623006',
+                           lstdate:'1465284781937',
+                           status: 'closed',
                            priority: '1'
                         },{
-                           name:'Project 2015',
+                           name:'Project 2015 LAST',
                            duedate:'20123470505', 
                            inidate:'20123450505',
+                           lstdate:'1465284781937',
                            description:'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.',
+                           status: 'created',
                            priority: '0'
                         },{
-                           name:'Project 2014',
+                           name:'Project 2014 LAST',
                            duedate:'2011172340101', 
                            inidate:'20160324505',
+                           lstdate:'1465284781937',
                            description:'Note the use of Angular expressions with the curly braces  to include various properties of the JavaScript object to construct the menu item',
+                           status: 'created',
                            priority: '2'
                         },{
-                           name:'TEST TEST TEST',
+                           name:'TEST TEST LAST',
                            duedate:'2340172340101', 
+                           lstdate:'1465284781937',
                            inidate:'20160324505',
                            description:'Note the use of Angular expressions with the curly braces  to include various properties of the JavaScript object to construct the menu item',
+                           status: 'progress',
                            priority: '0'
                         },{
                            name:'BAD TEST TEST',
                            duedate:'2140172340101', 
+                           lstdate:'1288323623006',
                            inidate:'2016032344505',
-                            lastdate:'',
+                           status: 'suspended',
                            description:'Several date to millisecond calculators, useful when coding countdown timers, ... Milliseconds to date string different than date to milliseconds for the same date',
                            priority: '2'
                         },{
-                           name:'Project 2016',
+                           name:'Project 2016 no last',
                            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
                            duedate:'20142360505', 
                            inidate:'20123450505',
+                           status: 'abandoned',
                            priority: '1'
                         },{
                            name:'Project ABC',
                            duedate:'20123470505', 
+                           lstdate:'1288323623006',
                            inidate:'20123450505',
                            description:'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.',
+                           status: 'closed',
                            priority: '0'
                         },{
                            name:'ABC 2014',
                            duedate:'2011172340101', 
+                           lstdate:'1288323623006',
                            inidate:'20160324505',
                            description:'Note the use of Angular expressions with the curly braces  to include various properties of the JavaScript object to construct the menu item',
                            priority: '2'
                         },{
                            name:'GOOD TEST TEST',
                            duedate:'2140172340101', 
+                           lstdate:'1288323623006',
                            inidate:'2016044324505',
                            description:'Note the use of Angular expressions with the curly braces  to include various properties of the JavaScript object to construct the menu item',
                            priority: '0'
                         },{
                            name:'EXAMPLE TEST TEST',
                            duedate:'2140172340101', 
+                           lstdate:'1288323623006',
                            inidate:'2016032344505',
                            description:'Several date to millisecond calculators, useful when coding countdown timers, ... Milliseconds to date string different than date to milliseconds for the same date',
                            priority: '2'
                         }];
+            $scope.date = new Date();
+            $scope.priorityColors = ['danger','warning','success'];
+            $scope.priorityLabels = ['High','Medium','Normal'];
+            $scope.prjSorter = 'duedate';
+            $scope.prjStatus = utils.extractUnique(utils.extractField($scope.prjs,'status'));
+            $scope.prjFilter = {};
+            $scope.prjFilter.text = '';
+            $scope.prjFilter.last = false;
+            $scope.prjFilter.favourites = false;
+            $scope.prjFilter.elapsed='259200000'; // 48h
+            $scope.prjFilter.status = '';
+            $scope.prjFilter.do = function(item){
+                console
+                return (
+                    (
+                        $scope.prjFilter.text == undefined ||
+                        $scope.prjFilter.text.trim().length == 0 ||
+                        ((item.description.indexOf($scope.prjFilter.text)>=0) ||
+                        (item.name.indexOf($scope.prjFilter.text)>=0)) 
+                    ) &&
+                    (   // last used
+                        $scope.prjFilter.last == false ||
+                        ($scope.date - $scope.prjFilter.elapsed < item.lstdate)
+                    ) &&
+                    (   // favourites
+                        true
+                    ) &&
+                    (   // status
+                        $scope.prjFilter.status === '' ||
+                        (item.status == $scope.prjFilter.status)
+                    )
+                );
+            };
         }]);
         
     </script>
