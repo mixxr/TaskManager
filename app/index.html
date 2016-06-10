@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" ng-app='taskmanager'>
+    
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Task Manager</title>
     
-    <!-- Bootstrap -->
-    <!-- the following is for usemin gulp plugin -->
     <!-- build:css styles/main.css -->
+    <!-- Bootstrap -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <!-- custom -->
@@ -17,8 +16,9 @@
     <!-- icons&font awesome -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap-social.css" rel="stylesheet">
+    <!-- tree grid -->
+    <link href="../bower_components/angular-bootstrap-grid-tree/src/treeGrid.css" rel="stylesheet">
     <!-- endbuild -->
-    
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -29,132 +29,13 @@
 </head>
 
 <body>
-    <!-- The navbar-inverse class to specify that the page should use the dark navigation bar. -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <!-- This navigation bar does the responsive design -->
-        <div class="navbar-header navbar-right">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <!-- hamburger -->
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Task Manager</a>
-        </div>
-        <div class="container">
-            <div id="navbar" class="navbar-collapse collapse"><!-- this hides when xs -->
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="projects.html">All</a></li>
-                            <li><a href="#">Project 2016</a></li>
-                            <li><a href="#">Project ABC</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Tags</li>
-                            <li><a href="#">Cloud</a></li>
-                            <li><a href="#">Nodejs</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="newtask.html">New Task</a></li>
-                </ul> 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a data-toggle="modal" data-target="#loginModal">
-                    <span class="glyphicon glyphicon-log-in"></span> Login</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </nav>
-     <div id="loginModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Login </h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-inline" role="form">
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="username" name="username" placeholder="email o username">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="password">
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-success btn-sm">Login</button>
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-
-                </form>
-            </div>
-        </div>
-        </div>
-    </div>
     
-    <header class="jumbotron">
-
-        <!-- Main component for a primary marketing message or call to action -->
-
-        <div class="container">
-            <div class="row row-header">
-                <div class="col-xs-12 col-sm-8">
-                    <h1>Your Company Name</h1>
-                    <p style="padding:40px;"></p>
-                    <p>Manage your tasks in easy way with your teams!</p>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class='container'>
-        <div class='row row-content'>
-            <div class="col-xs-12 col-sm-3 col-sm-push-9">
-                <p style="padding:20px;"></p>
-                <h3 align=center>Our Lipsmacking Culinary Creations</h3>
-            </div>
-            <div class="col-xs-12 col-sm-9 col-sm-pull-3">
-                <h2>Uthappizza</h2>
-                <p>A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.</p>
-                <p><a  href="#">More &raquo;</a></p>
-            </div>
-        </div>
-
-
-        <div class='row row-content'>
-            <div class="col-xs-12 col-sm-3">
-                <p style="padding:20px;"></p>
-                <h3 align=center>This Month's Promotions</h3>
-            </div>
-            <div class="col-xs-12 col-sm-9">
-                <h2>Weekend Grand Buffet</h2>
-                <p>Featuring mouthwatering combinations with a choice of five different salads, six enticing appetizers, six main entrees and five choicest desserts. Free flowing bubbly and soft drinks. All for just $19.99 per person </p>
-                <p><a href="#">More &raquo;</a></p>
-            </div>
-        </div>
-
-        <div class='row row-content'>
-            <div class="col-xs-12 col-sm-3 col-sm-push-9">
-                <p style="padding:20px;"></p>
-                <h3 align=center>Meet our Culinary Specialists</h3>
-            </div>
-            <div class="col-xs-12 col-sm-9 col-sm-pull-3">
-                <h2>Alberto Somayya</h2>
-                <h4>Executive Chef</h4>
-                <p>Award winning three-star Michelin chef with wide International experience having worked closely with whos-who in the culinary world, he specializes in creating mouthwatering Indo-Italian fusion experiences. </p>
-                <p><a href="#">More &raquo;</a></p>
-            </div>
-        </div>
-    </div>
-
+    
+    <!-- multiple view is supported only for UI-router vs ngRoute that manages just one -->
+    <div ui-view="header"></div>
+    <div ui-view="content"></div>
+    <!--div ui-view="footer"></div-->
+    
     <footer>
         <div class="container">
             <div class="row row-footer">             
@@ -192,16 +73,27 @@
                 </div>
                 <div class="col-xs-12">
                     <p style="padding:10px;"></p>
-                    <p align=center>© Copyright 2015 Ristorante Con Fusion</p>
+                    <p align=center>© Copyright 2016 ConfidentWare</p>
                 </div>
             </div>
         </div>
     </footer>
     <!-- build:js js/main.js -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AngularJS-->
     <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <!-- tree grid -->
+    <script src="../bower_components/angular-bootstrap-grid-tree/src/tree-grid-directive.js"></script>
+    <!-- application scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
     <!-- endbuild -->
-</body>
+
+    </body>
 
 </html>

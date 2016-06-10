@@ -1,0 +1,77 @@
+
+
+    <div class='container'>
+        <div class='row'>
+            <h3 class='col-xs-12'>Projects</h3>
+        </div>
+            
+        <div class='row'>
+            <div class="col-sm-6 col-xs-12">
+                <div class='input-group'>
+                  <span class="input-group-addon" id="sizing-addon2"><i class="glyphicon glyphicon-search"></i></span>
+      <input type="text" class="form-control" placeholder="search text" name='filter' aria-describedby="sizing-addon2" ng-model="prjFilter.text">
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 col-offset-sm-1">
+                <span style="margin-left:50px" class='hidden-sm hidden-lg hidden-md'> </span>
+                <div class='input-group'>
+              <span class="input-group-btn btn-group-sm ">
+                
+                <!--a type="button" class="btn btn-success" data-toggle="button" ng-model='prjFilter.last' ng-model="prjFilter.last=!prjFilter.last"><i class="glyphicon glyphicon-hourglass"></i> Last</a-->
+                <!--a type="button" class="btn btn-success"><i class="glyphicon glyphicon-star"></i>  Favourites</a-->
+                <div class="pull-right  btn-group btn-group-sm">
+                    <a type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-sort"></i> Sort by <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="" ng-click="prjSorter='name'">Name</a></li>
+                      <li><a href="" ng-click="prjSorter='priority'">Priority</a></li>
+                      <li><a href="" ng-click="prjSorter='duedate'">Due Date</a></li>
+                    </ul>
+                </div>
+                  <div class="pull-right btn-group btn-group-sm">
+                      <a type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-flag"></i> Status <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu" >
+                          <li ng-model="prjFilter.status" ng-repeat='opt in prjStatus track by opt'><a href="" ng-click="prjFilter.status=opt">{{opt}}</a></li>
+                      </ul>
+                  </div>
+                <button type="button" class="pull-right btn" ng-class="{'btn-success': prjFilter.last}" ng-model="prjFilter.last" btn-checkbox="prjFilter.last===true" ng-click="prjFilter.last = !prjFilter.last"><i class="glyphicon glyphicon-hourglass"></i> Last</button>
+                  <button type="button" class="pull-right  btn" ng-class="{'btn-success': prjFilter.favourites}" ng-model="prjFilter.favourites" btn-checkbox="prjFilter.favourites===true" ng-click="prjFilter.favourites = !prjFilter.favourites"><i class="glyphicon glyphicon-star"></i> Favourites</button>
+
+              </span>
+                </div>
+            </div>
+        </div>
+    
+        <div class='row' ng-init="limit=50">
+        <div class='col-xs-12 col-sm-4 col-md-3 col-lg-3' ng-repeat="prj in prjs | filter: prjFilter.do | orderBy: prjSorter">
+            <p style="padding:5px;"></p>
+            <div class='panel panel-success'>
+                <div class='panel-heading'>
+                    <a ui-sref="app.prj({id: prj._id})"><b>{{prj.name}}</b><span class="pull-right tag badge">{{50}}%</span></a>
+                </div>
+                <div class='panel-body'>
+                    {{prj.description | limitTo:limit}}<br/><a href ng-click="limit=undefined">...</a><br/> 
+                    <div class=''>
+                        <span ng-if='date >= prj.duedate' class="label label-danger">Overdue</span>
+                        <span ng-if='date < prj.duedate' class=""><strong>Due Date:</strong></span>
+                        {{prj.duedate | date: 'short'}}
+                    </div>
+                </div>
+                <div class='panel-footer'>
+                    <span class="label label-{{priorityColors[prj.priority]}}">{{priorityLabels[prj.priority]}}</span>
+                    <span ng-if='prj.status != undefined'>
+                        <div class='tag badge'>{{prj.status}}</div>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+        
+    </div>
+
+    
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+
+    <div class='container'>
+        <div class='row'>
+            <h3 class='col-xs-12'><i class='glyphicon glyphicon-calendar'></i> {{prj.name}}</h3>
+        </div>
+
+        <div class='row row-content'>
+            <div class="col-xs-12">
+                <form class="form-horizontal" role="form">
+                 <div class="panel-group" id="accordion">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" data-target="#general" href="javascript:;">
+                            General</a>
+                          </h4>
+                        </div>
+                        <div id="general" class="panel-collapse collapse in">
+                          <div class="panel-body">
+                              <!-- GENERAL -->
+                              <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label"> Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Project name" ng-model="prj.name">
+                                </div>
+                              </div>
+                            <div class="form-group">
+                                <label for="description" class="col-sm-2 control-label">Description</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="description" name="description" rows="6" ng-model="prj.description"></textarea>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                            <label for="priority" class="col-sm-2 control-label">Priority</label>
+                            <div class="col-sm-4 col-xs-10">
+                                <select ng-options="k as v for (k,v) in priorityLabels" ng-model="prj.priority"></select>
+                            </div>
+                        </div>
+                              <div class="form-group">
+                            <label for="priority" class="col-sm-2 control-label">Status</label>
+                            <div class="col-sm-4 col-xs-10">
+                                <select ng-options="k for k in prjStatus" ng-model="prj.status"></select>
+                            </div>
+                        </div>
+                              <div class="form-group">
+                            <label for="location" class="col-sm-2 control-label">Location</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="location" name="location" placeholder="GPS location/address">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Contact Person</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Task name">
+                                </div>
+                              </div>
+                        <div class="form-group">
+                        <label for="telnum" class="col-xs-12 col-sm-2 control-label">Contact Tel.</label>
+                        <div class="col-xs-5 col-sm-4 col-md-3">
+                            <div class="input-group">
+                                <div class="input-group-addon">(</div>
+                                    <input type="tel" class="form-control" id="areacode" name="areacode" placeholder="Area code">
+                                <div class="input-group-addon">)</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-7 col-sm-6 col-md-7">
+                                    <input type="tel" class="form-control" id="telnum" name="telnum" placeholder="Tel. number">
+                        </div>
+                    </div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="panel panel-default" style="display:{{isNew(prj)?'none':''}}">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" data-target="#subprjs" href="javascript:;" ng-init='loadTree(prj, true)'>Subprojects</a>
+                          </h4>
+                        </div>
+                        <div id="subprjs" class="panel-collapse collapse" >
+                            <div class="panel-body">
+                                <!-- PROJECT TREE GRID -->
+                                <button ng-click="my_tree.expand_all()" class="btn btn-default btn-sm">Expand All</button>
+            <button ng-click="my_tree.collapse_all()" class="btn btn-default btn-sm">Collapse All</button>
+                                
+                                <tree-grid tree-data="tree_data" tree-control="my_tree" col-defs="col_defs" expand-on="expanding_property" on-select="my_tree_handler(branch)" expand-level="3" icon-leaf= "glyphicon glyphicon-pencil" template-url="views/template-grid.html"></tree-grid>
+
+                            </div>
+                        </div>
+                      </div>
+                    
+                    </div>
+                </form>
+                <div class="btn-group btn-group-justified">
+                        <a type="button" class="btn btn-success col-xs-4" ng-click="save(prj)">Save Project</a>
+                        <a type="button" class="btn btn-danger col-xs-4" ng-click="delete(prj)">Delete Project</a>
+                </div>    
+                <div class = "alert alert-{{message.type}} alert-dismissable fade in" style="display:{{message.show}}">
+                   <button type = "button" class = "close" ng-click="message.show='none'" aria-hidden = "true">
+                      &times;
+                   </button>
+
+                   {{message.text}}
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+
+   

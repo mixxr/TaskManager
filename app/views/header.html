@@ -1,0 +1,86 @@
+<!-- The navbar-inverse class to specify that the page should use the dark navigation bar. -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- This navigation bar does the responsive design -->
+        <div class="navbar-header navbar-right">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <!-- hamburger -->
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Task Manager</a>
+        </div>
+        <div class="container">
+            <div id="navbar" class="navbar-collapse collapse"><!-- this hides when xs -->
+                <ul class="nav navbar-nav">
+                    <li class="active"><a ui-sref="app"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="app.projects">All</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Recent</li>
+                            <li ng-repeat="p in prjs"><a ui-sref="app.prj({id:p._id})">{{p.name}}</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Tags</li>
+                            <li><a href="#">Cloud</a></li>
+                            <li><a href="#">Nodejs</a></li>
+                        </ul>
+                    </li>
+                    <li><a ui-sref="app.prj({id:undefined})">New Task</a></li>
+                </ul> 
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a data-toggle="modal" data-target="#loginModal">
+                    <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+     <div id="loginModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Login </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="email o username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success btn-sm">Login</button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <header class="jumbotron">
+
+        <!-- Main component for a primary marketing message or call to action -->
+
+        <div class="container">
+            <div class="row row-header">
+                <div class="col-xs-12 col-sm-8">
+                    <h1>Your Company Name</h1>
+                    <p style="padding:40px;"></p>
+                    <p>Manage your tasks in easy way with your teams!</p>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                </div>
+            </div>
+        </div>
+    </header>
