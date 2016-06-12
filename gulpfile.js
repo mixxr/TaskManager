@@ -30,32 +30,32 @@ gulp.task('clean', function() {
 // Default task
 gulp.task('default', ['clean'], function() {
     //gulp.start('usemin', 'imagemin','copyfonts');
-    gulp.start('useminmultiple','copyfonts');
+    gulp.start('usemin','useminmultiple','copyfonts');
 });
 
 gulp.task('usemin',['jshint'], function () {
   return gulp.src('app/index.html')
       .pipe(usemin({
-        css:[minifycss(),rev()],
-        html: [minifyHTML({empty: true})],
-        js: [uglify(),rev()]
+        css:[minifycss(),rev()]
+        ,html: [minifyHTML({empty: true})]
+        //,js: [uglify(),rev()]
       }))
       .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('useminmultiple',['jshint'],  function () {
-  return gulp.src('app/*.html')
+  return gulp.src('app/views/*.html')
     .pipe(foreach(function (stream, file) {
       return stream
         .pipe(usemin({
-            css:[minifycss(),'concat'],
-            html: [minifyHTML({empty: true})],
-            js: [uglify(),'concat']
+            //css:[minifycss(),'concat'],
+            html: [minifyHTML({empty: true})]
+            //,js: [uglify(),'concat']
         }))
         // BE CAREFUL!!!
         // This now has the CSS/JS files added to the stream
         // Not just the HTML files you sourced
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest('dist/views'));
     }))
 });
 

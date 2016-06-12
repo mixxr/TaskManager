@@ -30,6 +30,26 @@
                                     <textarea class="form-control" id="description" name="description" rows="6" ng-model="prj.description"></textarea>
                                 </div>
                               </div>
+                              <!-- linked inidate e enddate -->
+                              
+                            <div class="form-group">
+                              <label class="col-sm-2 control-label">Start Date</label>
+                              <div class="col-sm-10">
+                                  <p class="input-group">
+                                      <input type="text" class="form-control" datetime-picker="MM/dd/yyyy HH:mm" ng-model="prj.inidate" is-open="picker3.open" data-save-as="number" data-read-as="picker3.readAs"/>
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default" ng-click="picker3.open=true"><i class="fa fa-calendar"></i></button>
+                                  </span>
+                                  </p>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 control-label">model</label>
+                              <div class="col-sm-10">
+                                  <p class="form-control-static">{{ prj.inidate }}</p>
+                              </div>
+                          </div>
+                              
                               <div class="form-group">
                             <label for="priority" class="col-sm-2 control-label">Priority</label>
                             <div class="col-sm-4 col-xs-10">
@@ -107,5 +127,7 @@
         </div>
         
     </div>
-
+<script type="text/javascript">
+   
+</script>
    

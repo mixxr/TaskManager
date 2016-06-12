@@ -1,15 +1,12 @@
-'use strict';
-
 app
     .service('PrjService', function () {
-        console.log('PrjService');
        var prjs = [
            {
            _id: '0',
                _pid: undefined,
            name:'Project 2016 LAST',
            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
-           duedate:'1287323623006', 
+           duedate:'1287323733006', 
            inidate:'1288323623006',
            lstdate:'1466082756235',
            status: 'closed',
@@ -106,7 +103,7 @@ app
     
         this.list = function(onlyRoot){
             if (onlyRoot)
-                return prjs.filter(function(e){return (e._pid == undefined)});
+                return prjs.filter(function(e){return (e._pid === undefined);});
             return prjs;
         };
     
@@ -118,24 +115,24 @@ app
         };
     
         this.get = function(id){
-            if (id == undefined || isNaN(id)) return this.empty();
+            if (id === undefined || isNaN(id)) return this.empty();
             for (var i in prjs)
                 if (prjs[i]._id == id) return prjs[i];
             return {};
-        }
+        };
         
         this.getSubProjects = function(prjId){
             var subPrjs = [];
-
-            for (var i in prjs)
+            var i = 0;
+            for (i in prjs)
                 if (prjs[i]._pid == prjId) subPrjs.push(prjs[i]);
-            for (var i in subPrjs)
+            for (i in subPrjs)
                 subPrjs[i].children = this.getSubProjects(subPrjs[i]._id);
             return subPrjs;
-        }
+        };
         
         this.save = function(prj){
-            if (prj._id == undefined) {
+            if (prj._id === undefined) {
                 prj._id = Math.ceil(Math.random()*100000000);
                 prjs.push(prj);
             } else {
@@ -145,13 +142,13 @@ app
                     }
                 }
             }
-        }
+        };
         
         this.delete = function(prj){
-            if (prj._id == undefined || isNaN(prj._id)) return false;
-            prjs = prjs.filter(function(e){return !(e._id==prj._id);});
+            if (prj._id === undefined || isNaN(prj._id)) return false;
+            prjs = prjs.filter(function(e){return (e._id!=prj._id);});
             return true;
-        }
+        };
         
         this.empty = function(){
             return {
@@ -161,15 +158,15 @@ app
                 status: 'created',
                 priority: '1'
             };
-        }
+        };
         
         this.getPriorityColors = function(){
             return priorityColors;
-        }
+        };
         this.getPriorityLabels = function(){
             return priorityLabels;
-        }
+        };
         this.getStatus = function(){
             return utils.extractUnique(utils.extractField(prjs,'status'));
-        }
+        };
     });

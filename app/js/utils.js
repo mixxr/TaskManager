@@ -4,6 +4,6 @@ utils.extractField = function(items, field){
 };
 utils.extractUnique = function(xs){
   return xs.filter(function(x, i) {
-    return xs.indexOf(x) === i
+    return (xs.indexOf(x) === i);
   });
 };   

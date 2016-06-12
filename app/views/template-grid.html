@@ -1,9 +1,9 @@
 <div class="table-responsive">
-   <table class="table tree-grid">
+   <table class="table tree-grid table-striped table-hover">
    <thead class="text-primary">
      <tr>
        <th><a ng-if="expandingProperty.sortable" ng-click="sortBy(expandingProperty)">{{expandingProperty.displayName || expandingProperty.field || expandingProperty}}</a><span ng-if="!expandingProperty.sortable">{{expandingProperty.displayName || expandingProperty.field || expandingProperty}}</span><i ng-if="expandingProperty.sorted" class="{{expandingProperty.sortingIcon}} pull-right"></i></th>
-       <th ng-repeat="col in colDefinitions"><a ng-if="col.sortable" ng-click="sortBy(col)">{{col.displayName || col.field}}</a><span ng-if="!col.sortable">{{col.displayName || col.field}}</span><i ng-if="col.sorted" class="{{col.sortingIcon}} pull-right"></i></th>
+       <th ng-repeat="col in colDefinitions" class="{{col.classes}}"><a ng-if="col.sortable" ng-click="sortBy(col)">{{col.displayName || col.field}}</a><span ng-if="!col.sortable">{{col.displayName || col.field}}</span><i ng-if="col.sorted" class="{{col.sortingIcon}} pull-right"></i></th>
      </tr>
    </thead>
    <tbody>
@@ -14,7 +14,7 @@
               class="indented tree-icon"></i></a><span class="indented tree-label" ng-click="on_user_click(row.branch)">
              {{row.branch[expandingProperty.field] || row.branch[expandingProperty]}}</span>
        </td>
-       <td ng-repeat="col in colDefinitions">
+       <td ng-repeat="col in colDefinitions" class="{{col.classes}}">
          <div ng-if="col.cellTemplate" compile="col.cellTemplate" cell-template-scope="col.cellTemplateScope"></div>
          <div ng-if="!col.cellTemplate">{{row.branch[col.field]}}</div>
        </td>
