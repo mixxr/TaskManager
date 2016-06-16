@@ -6,7 +6,7 @@ app
                _pid: undefined,
            name:'Project 2016 LAST',
            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
-           duedate:'1287323733006', 
+           duedate:'1387323733006', 
            inidate:'1288323623006',
            lstdate:'1466082756235',
            status: 'closed',
@@ -132,6 +132,7 @@ app
         };
         
         this.save = function(prj){
+            prj.lstdate = Date.now();
             if (prj._id === undefined) {
                 prj._id = Math.ceil(Math.random()*100000000);
                 prjs.push(prj);
@@ -168,5 +169,480 @@ app
         };
         this.getStatus = function(){
             return utils.extractUnique(utils.extractField(prjs,'status'));
+        };
+    })
+
+.service('TaskService', function () {
+       var tasks = [
+           {
+            _id: '001',
+            _pid: '78',
+            name:'Task 001',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '34',
+            _pid: '78',
+            name:'Task 002',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '43534',
+            _pid: '78',
+            name:'Task 003',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '234',
+            _pid: '78',
+            name:'Task 004',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '23564',
+            _pid: '78',
+            name:'Task 004a',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '556',
+            _pid: '78',
+            name:'Task 005',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '3456',
+            _pid: '78',
+            name:'Task 006',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1388323623006',
+            lstdate:'1366082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '3456',
+            _pid: '78',
+            name:'Task 007',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1388323623006',
+            lstdate:'1366082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '788',
+            _pid: '78',
+            name:'Task 008',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '240',
+            _pid: '78',
+            name:'Task 009',
+            description: 'This directive can be abused to add unnecessary amounts of logic into your templates. There are only a few appropriate uses of ngInit, such as for aliasing special properties of ngRepeat, as seen in the demo below; and for injecting data via server side scripting. Besides these few cases, you should use c',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '34545',
+            _pid: '78',
+            name:'Task 010',
+            description: 'Note: If you have assignment in ngInit along with a filter, make sure you have parentheses to ensure correct operator precedence: ',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '3455',
+            _pid: '79',
+            name:'Task 002 NOT GOOD',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1466082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },{
+            _id: '001',
+            _pid: '79',
+            name:'Task 001 NOT GOOD',
+            description: 'Next go to the content row in the body of the page, and add some data to be used within the application, by using the ng-init directive as follows',
+            duedate:'1387323733006', 
+            inidate:'1288323623006',
+            lstdate:'1366082756235',
+            status: 'closed',
+            priority: '1',
+            assignedTo:'pippo@gmail.com',
+            assignedBy:'admin@fff.com'
+        },];
+        
+        var priorityColors = ['danger','warning','success'];
+        var priorityLabels = ['High','Medium','Normal'];
+    
+    
+        this.list = function(prjId){
+            return tasks.filter(function(e){return (e._pid == prjId);});
+        };
+    
+        this.recent = function(agems, count){
+            count = count || 10;
+            agems = agems || 518400000; // 4d
+            var nowdate = Date.now();
+            return tasks.filter(function(e){return (nowdate - agems < e.lstdate);});
+        };
+    
+        this.get = function(id){
+            if (id === undefined || isNaN(id)) return this.empty();
+            for (var i in tasks)
+                if (tasks[i]._id == id) return tasks[i];
+            return {};
+        };
+        
+        this.save = function(task){
+            task.lstdate = Date.now();
+            if (task._id === undefined) {
+                task._id = Math.ceil(Math.random()*100000000);
+                tasks.push(task);
+            } else {
+                for (var i in tasks) {
+                    if (tasks[i]._id == task._id) {
+                        tasks[i] = task;
+                    }
+                }
+            }
+        };
+        
+        this.delete = function(task){
+            if (task._id === undefined || isNaN(task._id)) return false;
+            tasks = tasks.filter(function(e){return (e._id!=task._id);});
+            return true;
+        };
+        
+        this.empty = function(){
+            return {
+                duedate:Date.now(), 
+                inidate:Date.now(),
+                lstdate:Date.now(),
+                status: 'created',
+                priority: '1'
+            };
+        };
+        
+        this.getPriorityColors = function(){
+            return priorityColors;
+        };
+        this.getPriorityLabels = function(){
+            return priorityLabels;
+        };
+        this.getStatus = function(){
+            return utils.extractUnique(utils.extractField(tasks,'status'));
         };
     });

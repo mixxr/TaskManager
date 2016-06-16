@@ -18,6 +18,12 @@
     <link href="css/bootstrap-social.css" rel="stylesheet">
     <!-- tree grid -->
     <link href="../bower_components/angular-bootstrap-grid-tree/src/treeGrid.css" rel="stylesheet">
+    <!-- DATATABLES -->
+    <link href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../bower_components/datatables.net-select-bs/css/select.bootstrap.min.css" rel="stylesheet">
+    <link href="../bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/mystyles.table.css" rel="stylesheet">
     <!-- datepicker -->
     <!-- endbuild -->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -35,6 +41,7 @@
     <!-- multiple view is supported only for UI-router vs ngRoute that manages just one -->
     <div ui-view="header"></div>
     <div ui-view="content"></div>
+    <div ui-view="postcontent"></div>
     <!--div ui-view="footer"></div-->
     
     <footer>
@@ -91,6 +98,7 @@
     <!-- datepicker -->
     <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="../bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
+    
 
     <!-- application scripts -->
     <script src="js/utils.js"></script>

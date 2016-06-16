@@ -36,28 +36,33 @@
                               <label class="col-sm-2 control-label">Start Date</label>
                               <div class="col-sm-10">
                                   <p class="input-group">
-                                      <input type="text" class="form-control" datetime-picker="MM/dd/yyyy HH:mm" ng-model="prj.inidate" is-open="picker3.open" data-save-as="number" data-read-as="picker3.readAs"/>
+                                      <input type="text" class="form-control" datetime-picker="MM/dd/yyyy HH:mm" ng-model="prj.inidate" is-open="pickerIni.open" data-save-as="number" data-read-as="pickerIni.readAs"/>
                                   <span class="input-group-btn">
-                                      <button type="button" class="btn btn-default" ng-click="picker3.open=true"><i class="fa fa-calendar"></i></button>
+                                      <button type="button" class="btn btn-default" ng-click="pickerIni.open=true"><i class="fa fa-calendar"></i></button>
                                   </span>
                                   </p>
                               </div>
                           </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 control-label">model</label>
+                            <div class="form-group">
+                              <label class="col-sm-2 control-label">Due Date</label>
                               <div class="col-sm-10">
-                                  <p class="form-control-static">{{ prj.inidate }}</p>
+                                  <p class="input-group">
+                                      <input type="text" class="form-control" datetime-picker="MM/dd/yyyy HH:mm" ng-model="prj.duedate" is-open="pickerDue.open" data-save-as="number" data-read-as="pickerDue.readAs"/>
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default" ng-click="pickerDue.open=true"><i class="fa fa-calendar"></i></button>
+                                  </span>
+                                  </p>
                               </div>
                           </div>
                               
                               <div class="form-group">
-                            <label for="priority" class="col-sm-2 control-label">Priority</label>
+                            <label for="priority" class="col-xs-2 control-label">Priority</label>
                             <div class="col-sm-4 col-xs-10">
                                 <select ng-options="k as v for (k,v) in priorityLabels" ng-model="prj.priority"></select>
                             </div>
                         </div>
-                              <div class="form-group">
-                            <label for="priority" class="col-sm-2 control-label">Status</label>
+                            <div class="form-group">
+                            <label for="priority" class="col-xs-2 control-label">Status</label>
                             <div class="col-sm-4 col-xs-10">
                                 <select ng-options="k for k in prjStatus" ng-model="prj.status"></select>
                             </div>
