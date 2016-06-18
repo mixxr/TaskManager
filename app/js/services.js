@@ -10,6 +10,7 @@ app
            inidate:'1288323623006',
            lstdate:'1466082756235',
            status: 'closed',
+            children: ['p','t'], 
            priority: '1'
         },{
            _id: '1',
@@ -20,6 +21,7 @@ app
            lstdate:'1465564356231',
            description:'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.',
            status: 'created',
+            children: [],
            priority: '0'
         },{
            _id: '223',
@@ -58,6 +60,7 @@ app
            duedate:'20142360505', 
            inidate:'20123450505',
            status: 'abandoned',
+            children: ['p'],
            priority: '1'
         },{
            _id: '809',
@@ -85,6 +88,7 @@ app
            lstdate:'1288323623006',
            inidate:'2016044324505',
            description:'Note the use of Angular expressions with the curly braces  to include various properties of the JavaScript object to construct the menu item',
+            children: ['t'],
            priority: '0'
         },{
            _id: '78',
@@ -94,6 +98,7 @@ app
            lstdate:'1288323623006',
            inidate:'2016032344505',
            description:'Several date to millisecond calculators, useful when coding countdown timers, ... Milliseconds to date string different than date to milliseconds for the same date',
+            children: ['t'],
            priority: '2'
         }];
         
@@ -157,6 +162,7 @@ app
                 inidate:Date.now(),
                 lstdate:Date.now(),
                 status: 'created',
+                children: undefined,
                 priority: '1'
             };
         };

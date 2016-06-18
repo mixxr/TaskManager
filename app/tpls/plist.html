@@ -1,0 +1,17 @@
+<div class="panel panel-default"> <!--style="display:{{isNew(prj)?'none':''}}"-->
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" data-target="#subprjs" href="javascript:;" ng-init='loadTree(prj, true)'>Subprojects</a>
+                          </h4>
+                        </div>
+                        <div id="subprjs" class="panel-collapse collapse" >
+                            <div class="panel-body">
+                                <!-- PROJECT TREE GRID -->
+                                <button ng-click="my_tree.expand_all()" class="btn btn-default btn-sm">Expand All</button>
+            <button ng-click="my_tree.collapse_all()" class="btn btn-default btn-sm">Collapse All</button>
+                                
+                                <tree-grid tree-data="tree_data" tree-control="my_tree" col-defs="col_defs" expand-on="expanding_property" on-select="my_tree_handler(branch)" expand-level="3" icon-leaf= "glyphicon glyphicon-pencil" template-url="views/template-grid.html"></tree-grid>
+
+                            </div>
+                        </div>
+                      </div>

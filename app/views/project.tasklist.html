@@ -71,7 +71,7 @@
                       <div class="panel panel-default">
                         <div class="panel-heading">
                           <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="javascript:;" data-target="#tasks">Tasks</a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="javascript:$('#tasklist').resize()" data-target="#tasks">Tasks</a>
                           </h4>
                         </div>
                         <div id="tasks" class="panel-collapse collapse">
@@ -93,9 +93,9 @@
                   <tr ng-repeat='task in tasks'>
                     <td><a href='#/tasks/:_id'>{{task.name}}</a></td>
                     <td>{{task.description | limitTo: 50}}...</td>
-                    <td>{{task.inidate | date:'medium'}}</td>
-                    <td>{{task.duedate | date:'medium'}}</td>
-                    <td>{{task.lstdate | date:'medium'}}</td>
+                    <td>{{task['inidate'] | date:dateFormat}}</td>
+                    <td>{{task.duedate | date:dateFormat}}</td>
+                    <td>{{task.lstdate | date:dateFormat}}</td>
                     <td class='warning'>{{task.status}}</td>
                     <td>{{task.assignedTo}}</td>
                   </tr>

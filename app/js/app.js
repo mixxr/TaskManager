@@ -50,6 +50,7 @@ app.controller( 'PrjCtrlr', ['$scope', '$state', '$stateParams', 'PrjService', '
         var id =parseInt($stateParams.id,10);
         $scope.prj = PrjService.get(id);
         $scope.tasks = TaskService.list(id);
+        $scope.dateFormat = 'MMM dd, yyyy hh:mm';
         //$scope.prj.inidate = new Date(parseInt($scope.prj.inidate));
         //$scope.prj.duedate = new Date(parseInt($scope.prj.duedate));
         // button bar
@@ -266,24 +267,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
                      }
                 }
             })
-            .state('app.prj2', {
-                    url: 'projects2/:id',
-                    views: {
-                        'content@': {
-                            templateUrl : 'views/project.tasklist.html',
-                            controller  : 'PrjCtrlr'
-                       },'postcontent@':{
-                            templateUrl : 'views/dtinit.html',
-                       }
-                    }
-                })
             .state('app.prj', {
                 url: 'projects/:id',
                 views: {
                     'content@': {
                         templateUrl : 'views/project.html',
                         controller  : 'PrjCtrlr'
-                   }
+                   },'postcontent@':{
+                            templateUrl : 'dtinit.html',
+                       }
                 }
             });
         $urlRouterProvider.otherwise('/');
@@ -308,7 +300,7 @@ app.directive('msMills', function() {
 	};
 });
 
-// to watch datatable
+// to watch datatable (not used)
 app.directive('msDtinit', function() {
     return {
         link: function($scope, element, attrs) {
@@ -321,11 +313,55 @@ app.directive('msDtinit', function() {
                 $scope.$evalAsync(function() {
                     // Finally, directives are evaluated
                     // and templates are renderer here
-                    var children = element.children();
-                    console.log(children);
-                    element.dataTable({select: {style: 'multi'}, responsive:true});
+                    element.dataTable({select: {style: 'multi'}, responsive:true});   
                 });
             });
         },
     };
+});
+
+// to load accordions dynamically
+// <ms-accordion data=”[p|t]”/>
+app.directive('msAccordionStatic', function() {
+    console.log('áccordion-static');
+  return {
+    template: '<ng-include src="getTemplateUrl()"/>',
+    scope: {
+      accType: '=data'
+    },
+    restrict: 'E',
+    controller: function($scope) {
+      //function used on the ng-include to resolve the template
+      $scope.getTemplateUrl = function() {
+          console.log('accordion:',"tpls/"+$scope.accType+"list.html");
+          return "tpls/"+$scope.accType+"list.html"; 
+      }
+    }
+  };
+});
+
+// to load accordions dynamically (and compiled)
+// <ms-accordion data=”[p|t]”/>
+app.directive('msAccordion', function($templateRequest, $compile,$rootScope,$timeout) {
+    console.log('áccordion');
+    var linker = function(scope, element){
+       $templateRequest("tpls/"+scope.accType+"list.html").then(function(html){
+          var template = angular.element(html);
+           console.log(template.html());
+          $compile(template)(scope);
+          $timeout(function() {
+            console.log('dopo:',template.html());
+            element.html(template).show();
+            $rootScope.$apply(); 
+          });
+       });
+    };
+    
+  return {
+    restrict: "E",
+    link: linker,
+    scope: {
+        accType: '=data'
+    }
+  };
 });

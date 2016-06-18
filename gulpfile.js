@@ -30,9 +30,10 @@ gulp.task('clean', function() {
 // Default task
 gulp.task('default', ['clean'], function() {
     //gulp.start('usemin', 'imagemin','copyfonts');
-    gulp.start('usemin','useminmultiple','copyfonts');
+    gulp.start('useminroot','useminviews','copyfonts');
 });
 
+/*
 gulp.task('usemin',['jshint'], function () {
   return gulp.src('app/index.html')
       .pipe(usemin({
@@ -42,8 +43,25 @@ gulp.task('usemin',['jshint'], function () {
       }))
       .pipe(gulp.dest('dist/'));
 });
+*/
 
-gulp.task('useminmultiple',['jshint'],  function () {
+gulp.task('useminroot',['jshint'],  function () {
+  return gulp.src('app/*.html')
+    .pipe(foreach(function (stream, file) {
+      return stream
+        .pipe(usemin({
+            css:[minifycss(),'concat'],
+            html: [minifyHTML({empty: true})]
+            //,js: [uglify(),'concat']
+        }))
+        // BE CAREFUL!!!
+        // This now has the CSS/JS files added to the stream
+        // Not just the HTML files you sourced
+        .pipe(gulp.dest('dist'));
+    }))
+});
+
+gulp.task('useminviews',['jshint'],  function () {
   return gulp.src('app/views/*.html')
     .pipe(foreach(function (stream, file) {
       return stream
@@ -78,7 +96,7 @@ gulp.task('copyfonts', ['clean'], function() {
 // Watch
 gulp.task('watch', ['browser-sync'], function() {
   // Watch .js files
-  gulp.watch('{app/js/**/*.js,app/styles/**/*.css,app/**/*.html}', ['usemin']);
+  gulp.watch('{app/js/**/*.js,app/styles/**/*.css,app/**/*.html}', ['useminroot']);
       // Watch image files
   gulp.watch('app/images/**/*', ['imagemin']);
 

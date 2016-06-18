@@ -1,0 +1,46 @@
+
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="javascript:initDT()" data-target="#tasks">Tasks</a>
+                          </h4>
+                        </div>
+                        <div id="tasks" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <!-- TASK LIST -->
+            <table class="table table-striped table-hover" id='tasklist' style="width:100%">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Created</th>
+                    <th>Due</th>
+                    <th>Updated</th>
+                    <th>Status</th>
+                    <th>Assigned</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat='task in tasks'>
+                    <td><a href='#/tasks/:_id'>{{task.name}}</a></td>
+                    <td>{{task.description | limitTo: 50}}...</td>
+                    <td>{{task['inidate'] | date:dateFormat}}</td>
+                    <td>{{task.duedate | date:dateFormat}}</td>
+                    <td>{{task.lstdate | date:dateFormat}}</td>
+                    <td class='warning'>{{task.status}}</td>
+                    <td>{{task.assignedTo}}</td>
+                  </tr>
+                </tbody>
+                
+          </table>
+                            </div>
+                        </div>
+    </div>
+<script>
+    var done = false;
+    function initDT(){
+        if (!done)
+            $('#tasklist').dataTable({select: {style: 'multi'}, responsive:true});
+        done = true;
+    }
+</script>
