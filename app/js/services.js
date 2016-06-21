@@ -10,7 +10,7 @@ app
            inidate:'1288323623006',
            lstdate:'1466082756235',
            status: 'closed',
-            children: ['p','t'], 
+            childrenTab: 'pt', 
            priority: '1'
         },{
            _id: '1',
@@ -21,7 +21,7 @@ app
            lstdate:'1465564356231',
            description:'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.',
            status: 'created',
-            children: [],
+            childrenTab: undefined,
            priority: '0'
         },{
            _id: '223',
@@ -60,7 +60,7 @@ app
            duedate:'20142360505', 
            inidate:'20123450505',
            status: 'abandoned',
-            children: ['p'],
+            childrenTab: 'p',
            priority: '1'
         },{
            _id: '809',
@@ -88,7 +88,7 @@ app
            lstdate:'1288323623006',
            inidate:'2016044324505',
            description:'Note the use of Angular expressions with the curly braces  to include various properties of the JavaScript object to construct the menu item',
-            children: ['t'],
+            childrenTab: 't',
            priority: '0'
         },{
            _id: '78',
@@ -98,7 +98,7 @@ app
            lstdate:'1288323623006',
            inidate:'2016032344505',
            description:'Several date to millisecond calculators, useful when coding countdown timers, ... Milliseconds to date string different than date to milliseconds for the same date',
-            children: ['t'],
+            childrenTab: 't',
            priority: '2'
         }];
         
@@ -108,7 +108,7 @@ app
     
         this.list = function(onlyRoot){
             if (onlyRoot)
-                return prjs.filter(function(e){return (e._pid === undefined);});
+                return prjs.filter(function(e){return (e._pid === undefined || isNaN(e._pid));});
             return prjs;
         };
     
@@ -119,14 +119,15 @@ app
             return prjs.filter(function(e){return (nowdate - agems < e.lstdate);});
         };
     
-        this.get = function(id){
-            if (id === undefined || isNaN(id)) return this.empty();
+        this.get = function(id, pid){
+            if (id === undefined || isNaN(id)) return this.empty(pid);
             for (var i in prjs)
                 if (prjs[i]._id == id) return prjs[i];
             return {};
         };
         
         this.getSubProjects = function(prjId){
+            //console.log('getSubProjects ',prjId);
             var subPrjs = [];
             var i = 0;
             for (i in prjs)
@@ -136,18 +137,41 @@ app
             return subPrjs;
         };
         
+        this.getChain = function(pid){
+            if (pid === undefined || isNaN(pid)) return [];
+            for (var i in prjs)
+                if (prjs[i]._id == pid)
+                    return Array.prototype.concat(this.getChain(prjs[i]._pid), prjs[i]);
+            return [];
+        };
+    
         this.save = function(prj){
             prj.lstdate = Date.now();
             if (prj._id === undefined) {
-                prj._id = Math.ceil(Math.random()*100000000);
+                prj._id = ''+Math.ceil(Math.random()*100000000);
                 prjs.push(prj);
+                return prj;
             } else {
                 for (var i in prjs) {
                     if (prjs[i]._id == prj._id) {
                         prjs[i] = prj;
+                        return prj;
                     }
                 }
             }
+        };
+    
+        this.copy = function(prj, pid){
+            pid = pid || undefined;
+            var children = prj.children;
+            prj.children = undefined;
+            //var newPrj = jQuery.extend(true, {}, prj); // it makes $$hashKey copy=>angular dup error
+            var newPrj = angular.copy(prj);
+            prj.children = children;
+            newPrj._id = undefined;
+            if (pid) newPrj._pid = pid;
+            //newPrj.childrenTab = undefined;
+            return newPrj;
         };
         
         this.delete = function(prj){
@@ -156,13 +180,15 @@ app
             return true;
         };
         
-        this.empty = function(){
+        this.empty = function(pid){
             return {
+                _pid: pid,
+                name:'Please give me a name!',
                 duedate:Date.now(), 
                 inidate:Date.now(),
                 lstdate:Date.now(),
                 status: 'created',
-                children: undefined,
+                childrenTab: undefined,
                 priority: '1'
             };
         };

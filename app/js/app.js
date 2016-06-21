@@ -7,8 +7,8 @@ app.controller( 'LandingCtrlr', ['$scope', 'PrjService', function($scope, PrjSer
 }]);
                               
 app.controller( 'PrjsCtrlr', ['$scope', 'PrjService', function($scope, PrjService) {
-        console.log('PrjsCtrlr');
-        $scope.prjs = PrjService.list(false); // false: all, true: onlyRoot prjs
+        console.log('PrjsCtrlr:');
+        $scope.prjs = PrjService.list(true); // false: all, true: onlyRoot prjs
         $scope.date = new Date();
         $scope.priorityColors = PrjService.getPriorityColors();
         $scope.priorityLabels = PrjService.getPriorityLabels();
@@ -46,10 +46,12 @@ app.controller( 'PrjsCtrlr', ['$scope', 'PrjService', function($scope, PrjServic
     }]);
 
 app.controller( 'PrjCtrlr', ['$scope', '$state', '$stateParams', 'PrjService', 'TaskService', function($scope, $state, $stateParams, PrjService, TaskService) {
-        console.log('PrjCtrlr');
+        console.log('PrjCtrlr:',$stateParams.id,",",$stateParams.pid);
         var id =parseInt($stateParams.id,10);
-        $scope.prj = PrjService.get(id);
+        var pid =parseInt($stateParams.pid,10);
+        $scope.prj = PrjService.get(id, pid);
         $scope.tasks = TaskService.list(id);
+        $scope.parents = PrjService.getChain($scope.prj._pid);
         $scope.dateFormat = 'MMM dd, yyyy hh:mm';
         //$scope.prj.inidate = new Date(parseInt($scope.prj.inidate));
         //$scope.prj.duedate = new Date(parseInt($scope.prj.duedate));
@@ -75,16 +77,38 @@ app.controller( 'PrjCtrlr', ['$scope', '$state', '$stateParams', 'PrjService', '
         $scope.message.show = 'none';
         $scope.message.type = 'success';
         $scope.isNew = function(prj){
-            console.log('isNew');
+            console.log('isNew:',prj._id,",",(prj._id === undefined || isNaN(prj._id)));
             return (prj._id === undefined || isNaN(prj._id));
         };
         $scope.save = function(prj){
+            var wasNew = $scope.isNew(prj);
             prj = PrjService.save(prj);
             $scope.message.text = 'Success! The project is saved.';
             $scope.message.show = '';
             $scope.message.type = 'success';
-            //if (!isNew(prj))
-            //    $state.go('app.prj({id:prj._id})');
+//            if (wasNew)
+//                $state.go('app.prj({id:prj._id})');
+        };
+        $scope.deepCopy = function(pid, children){
+            for(var i in children){
+                console.log('p:',children[i]);
+                var newp = PrjService.save(PrjService.copy(children[i], pid));
+                this.deepCopy(newp._id, children[i].children);
+            }
+        };
+        $scope.copy = function(prj, deep){
+            deep = deep || false;
+            prj = PrjService.save(PrjService.copy(prj));
+            if (deep){
+                $scope.deepCopy(prj._id, $scope.tree_data);
+            }
+            $state.go('app.prj',{id:prj._id});
+        };
+        $scope.createSubPrj = function(){
+            //var pid = $scope.prj._id;
+            //$scope.prj = PrjService.empty();
+            //$scope.prj._pid = pid;
+            $state.go('app.prj', {id: undefined, pid:$scope.prj._id});
         };
         $scope.delete = function(prj){
             if (PrjService.delete(prj)){
@@ -276,6 +300,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
                    },'postcontent@':{
                             templateUrl : 'dtinit.html',
                        }
+                },
+                params: {
+                  pid: { value: undefined }
                 }
             });
         $urlRouterProvider.otherwise('/');
