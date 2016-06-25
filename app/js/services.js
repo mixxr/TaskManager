@@ -131,7 +131,10 @@ app
             var subPrjs = [];
             var i = 0;
             for (i in prjs)
-                if (prjs[i]._pid == prjId) subPrjs.push(prjs[i]);
+                if (prjs[i]._pid == prjId) {
+                    prjs[i].childId = prjs[i].childId || i;
+                    subPrjs.push(prjs[i]);
+                }
             for (i in subPrjs)
                 subPrjs[i].children = this.getSubProjects(subPrjs[i]._id);
             return subPrjs;

@@ -11,7 +11,7 @@
                                 <button ng-click="my_tree.collapse_all()" class="btn btn-default btn-sm">Collapse All</button>
                                 <button ng-click="createSubPrj()" class="btn btn-success btn-sm">Add Subproject</button>
                                 
-                                <tree-grid tree-data="tree_data" tree-control="my_tree" col-defs="col_defs" expand-on="expanding_property" on-select="my_tree_handler(branch)" expand-level="3" icon-leaf= "glyphicon glyphicon-pencil" template-url="views/template-grid.html"></tree-grid>
+                                <tree-grid tree-data="tree_data" tree-control="my_tree" col-defs="col_defs" expand-on="expanding_property" on-click="my_tree_handler(branch)" expand-level="3" icon-leaf= "glyphicon glyphicon-pencil" template-url="views/template-grid.html"></tree-grid>
 
                             </div>
                         </div>

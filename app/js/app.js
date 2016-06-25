@@ -52,6 +52,7 @@ app.controller( 'PrjCtrlr', ['$scope', '$state', '$stateParams', 'PrjService', '
         $scope.prj = PrjService.get(id, pid);
         $scope.tasks = TaskService.list(id);
         $scope.parents = PrjService.getChain($scope.prj._pid);
+        $scope.prjSorter = 'inidate';
         $scope.dateFormat = 'MMM dd, yyyy hh:mm';
         //$scope.prj.inidate = new Date(parseInt($scope.prj.inidate));
         //$scope.prj.duedate = new Date(parseInt($scope.prj.duedate));
@@ -127,10 +128,38 @@ app.controller( 'PrjCtrlr', ['$scope', '$state', '$stateParams', 'PrjService', '
         $scope.expanding_property = {
             field: "name", displayName: "Name"
         };
+        indexof = function(items, field, value){
+            return  items.map(function(e) { return e[field]; }).indexOf(value);
+        }
+        swap = function(items,pos1,pos2){
+            if (pos1<0) pos1 = items.length-1;
+            if (pos2>items.length-1) pos2 = 0;
+            console.log('swap:',pos1,'-',pos2);
+            var t = items[pos1];
+            items[pos1] = items[pos2];
+            items[pos2] = t;
+            return items;
+        }
         $scope.col_defs = [        
           {
             field: "_id", displayName: " ",
-            cellTemplate: "<a ui-sref='app.prj({id: row.branch[col.field]})'>&nbsp;&nbsp;<span class='glyphicon glyphicon-edit'></span></a>"
+            cellTemplate: "<div>&nbsp;&nbsp;"+
+              "<a ui-sref='app.prj({id: row.branch[col.field]})'><span class='glyphicon glyphicon-edit'></span></a>"+
+              "<a ng-if='row.level==1' href='javascript:;' ng-click='cellTemplateScope.tree_moveup(row.branch[col.field])'><span class='glyphicon glyphicon-arrow-up'></span></a>"+
+              "<a ng-if='row.level==1' href='javascript:;' ng-click='cellTemplateScope.tree_movedown(row.branch[col.field])'><span class='glyphicon glyphicon-arrow-down'></span></a>"+
+              "</div>",
+            cellTemplateScope: {
+                tree_moveup: function(id) {         // this works too: $scope.someMethod;
+                    console.log('up:',id);
+                    var i = indexof($scope.tree_data,'_id',id);
+                    $scope.tree_data = swap($scope.tree_data,parseInt(i)-1,i);
+                },
+                tree_movedown: function(id) {         // this works too: $scope.someMethod;
+                    console.log('down:',id);
+                    var i = indexof($scope.tree_data,'_id',id);
+                    $scope.tree_data = swap($scope.tree_data,i,parseInt(i)+1);
+                }
+            }
         },
         {  field: "description", displayName: "Description", classes: "hidden-xs",
            cellTemplate: "<span>{{row.branch[col.field]| limitTo:50}}...</span>" 
@@ -140,7 +169,7 @@ app.controller( 'PrjCtrlr', ['$scope', '$state', '$stateParams', 'PrjService', '
         ];
         $scope.my_tree = {};
         $scope.my_tree_handler = function(branch){
-            console.log('you clicked on', branch);
+            console.log('you clicked on ', branch);
         };
         $scope.loadTree = function(prj, cache){
             console.log('loadTree');
